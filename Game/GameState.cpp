@@ -61,8 +61,19 @@ void GameState::start() {
 
 	for (int i = 1; i <= 7; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
-		pat->loadFile("p" + std::to_string(i) + ".txt");
+		pat->loadFile("pe" + std::to_string(i) + ".txt");
 		patternList1_.push_back(std::unique_ptr<Pattern>(pat));
+	}
+
+	for (int i = 1; i <= 7; i++) {
+		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
+		pat->loadFile("pe" + std::to_string(i) + ".txt");
+		patternList2_.push_back(std::unique_ptr<Pattern>(pat));
+	}
+	for (int i = 1; i <= 7; i++) {
+		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
+		pat->loadFile("pe" + std::to_string(i) + ".txt");
+		patternList3_.push_back(std::unique_ptr<Pattern>(pat));
 	}
 
 	Player* player = new Player(&resourceManager_, entityManager_.get());
@@ -85,9 +96,20 @@ void GameState::exit() {
 }
 
 void GameState::runRandomPattern() {
-	//TODO: select which patternlist. For now just use patternList1_.
+	PatternList* patternList;
+	if (entityManager_->getScore() < 5) {
+		patternList = &patternList1_;
+	}
+	else if (entityManager_->getScore() < 10) {
+		patternList = &patternList2_;
+	}
+	else{
+		patternList = &patternList3_;
+	}
 
-	PatternList* patternList = &patternList1_;
+	if (entityManager_->getScore() > 30) {
+		EntityManager::bpm = 120;
+	}
 	int r = rand() % patternList->size();
 	patternList->at(r)->runPattern();
 }

@@ -60,6 +60,10 @@ void EntityManager::increaseScore() {
 	score++;
 }
 
+int EntityManager::getScore() const {
+	return score;
+}
+
 void EntityManager::update(int frameTime) {
 	bg1.setPosition(0, bgy - SCREEN_HEIGHT);
 	bg2.setPosition(0, bgy);

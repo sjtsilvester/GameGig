@@ -50,6 +50,7 @@ public:
 
 	void screenShake(float magnitude, int time);
 	void increaseScore();
+	int getScore() const;
 private:
 	int score;
 	sf::Font font;
