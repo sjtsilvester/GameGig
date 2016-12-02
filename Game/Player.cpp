@@ -10,6 +10,7 @@ Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, Entit
 	health = 10;
 	reload_ = (EntityManager::bpm / 60) * 1000 / 2;
 	timer_ = reload_;
+	dead = false;
 }
 
 void Player::update(int frame_time) {
@@ -21,12 +22,24 @@ int Player::getHealth() const {
 	return health;
 }
 
+void Player::render(sf::RenderTarget* target) {
+	if (!dead) {
+		target->draw(sprite_);
+	}
+}
+
 void Player::takeDamage(int amount) {
-	health -= 1;
-    SoundManager::play("player_explosion");
-	entityManager_->clearEnemies();
-	entityManager_->screenShake(10.0f, 500);
-	entityManager_->getParticleEngine()->generateExplosionEffect(getPosition());
+	if (!dead) {
+		health -= 1;
+		SoundManager::play("player_explosion");
+		entityManager_->clearEnemies();
+		entityManager_->screenShake(10.0f, 500);
+		entityManager_->getParticleEngine()->generateExplosionEffect(getPosition());
+
+		if (health <= 0) {
+			dead = true;
+		}
+	}
 	//TODO: repeat last pattern
 }
 
@@ -40,20 +53,22 @@ void Player::switchColumn(bool left) {
 }
 
 void Player::sfmlEvent(sf::Event evt) {
-	if (evt.type == evt.KeyPressed) {
-		if (evt.key.code == sf::Keyboard::A) {
-			switchColumn(true);
-		}
-		else if (evt.key.code == sf::Keyboard::D) {
-			switchColumn(false);
-		}
-		else if (evt.key.code == sf::Keyboard::Space) {
-			if (timer_ >= reload_) {
-				timer_ = 0;
-				entityManager_->addEntity(new Bullet(resourceManager_, entityManager_,
-					"bullet", getPosition() + sfld::Vector2f(0, -TILE_SIZE), sfld::Vector2f(0, -1),
-					1.0f));
-				SoundManager::play("player_gun");
+	if (!dead) {
+		if (evt.type == evt.KeyPressed) {
+			if (evt.key.code == sf::Keyboard::A) {
+				switchColumn(true);
+			}
+			else if (evt.key.code == sf::Keyboard::D) {
+				switchColumn(false);
+			}
+			else if (evt.key.code == sf::Keyboard::Space) {
+				if (timer_ >= reload_) {
+					timer_ = 0;
+					entityManager_->addEntity(new Bullet(resourceManager_, entityManager_,
+						"bullet", getPosition() + sfld::Vector2f(0, -TILE_SIZE), sfld::Vector2f(0, -1),
+						1.0f));
+					SoundManager::play("player_gun");
+				}
 			}
 		}
 	}

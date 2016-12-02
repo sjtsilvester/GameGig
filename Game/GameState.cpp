@@ -59,20 +59,20 @@ void GameState::start() {
 
 	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
 
-	for (int i = 1; i <= 7; i++) {
+	for (int i = 1; i <= 2; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
 		pat->loadFile("pe" + std::to_string(i) + ".txt");
 		patternList1_.push_back(std::unique_ptr<Pattern>(pat));
 	}
 
-	for (int i = 1; i <= 7; i++) {
+	for (int i = 1; i <= 4; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
-		pat->loadFile("pe" + std::to_string(i) + ".txt");
+		pat->loadFile("pm" + std::to_string(i) + ".txt");
 		patternList2_.push_back(std::unique_ptr<Pattern>(pat));
 	}
-	for (int i = 1; i <= 7; i++) {
+	for (int i = 1; i <= 1; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
-		pat->loadFile("pe" + std::to_string(i) + ".txt");
+		pat->loadFile("ph" + std::to_string(i) + ".txt");
 		patternList3_.push_back(std::unique_ptr<Pattern>(pat));
 	}
 
