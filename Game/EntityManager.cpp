@@ -1,3 +1,5 @@
+/*The entity manager observes and updates the status of all the entities (ie enemies, players etc*/
+
 #include "stdafx.h"
 #include "EntityManager.h"
 #include "SFLD.h"
@@ -6,6 +8,8 @@
 #include "ParticleEngine.h"
 #include "Enemy.h"
 #include "TopLayerObj.h"
+
+
 
 EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resourceManager, ParticleEngine* particleEngine) 
 	: resourceManager_(resourceManager) , particleEngine_(particleEngine){

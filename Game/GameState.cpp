@@ -33,25 +33,6 @@ void GameState::start() {
 	particleEngine_ = std::unique_ptr<ParticleEngine>(new ParticleEngine());
 	entityManager_ = std::unique_ptr<EntityManager>(new EntityManager(&resourceManager_, particleEngine_.get()));
 
-	/*Pattern* test = new Pattern(entityManager_.get(), &resourceManager_);
-	std::vector<Enemy::Action> actions;
-	actions.push_back(Enemy::ACTION_DOWN);
-	actions.push_back(Enemy::ACTION_LEFT);
-	actions.push_back(Enemy::ACTION_DOWN);
-	actions.push_back(Enemy::ACTION_LEFT);
-	actions.push_back(Enemy::ACTION_SHOOT);
-	actions.push_back(Enemy::ACTION_DOWN);
-	actions.push_back(Enemy::ACTION_RIGHT);
-	actions.push_back(Enemy::ACTION_DOWN);
-	actions.push_back(Enemy::ACTION_RIGHT);
-
-	for (int x = 40; x <= 1000; x += 3*TILE_SIZE) {
-		PatternData data(actions, sfld::Vector2f(x, 50), "e");
-		test->addData(data);
-	}
-
-	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
-
 	Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
 	pat->loadFile("p1.txt");
 	patternList1_.push_back(std::unique_ptr<Pattern>(pat));

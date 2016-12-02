@@ -1,3 +1,5 @@
+/*A pattern encodes a list of enemies, their type, their start location and their sequence of movements*/
+
 #include "stdafx.h"
 #include <fstream>
 #include <sstream>
