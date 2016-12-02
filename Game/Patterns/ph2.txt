@@ -1,0 +1,8 @@
+e 0 0 down right shoot down left shoot
+e 1 1 shoot down left shoot down right
+e 2 0 down right shoot down left shoot
+e 3 1 shoot down left shoot down right
+e 4 0 down right shoot down left shoot
+e 5 1 shoot down left shoot down right
+e 6 0 down right shoot down left shoot
+e 7 1 shoot down left shoot down right
