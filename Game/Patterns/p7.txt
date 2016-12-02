@@ -1,1 +1,1 @@
-e 8 0 left shoot left
+e 8 0 left shoot left down shoot
