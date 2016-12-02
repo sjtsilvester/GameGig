@@ -5,8 +5,8 @@
 
 #define TILE_SIZE 32
 
-#define SCREEN_WIDTH 12*TILE_SIZE
-#define SCREEN_HEIGHT 24*TILE_SIZE
+#define SCREEN_WIDTH 8*TILE_SIZE
+#define SCREEN_HEIGHT 16*TILE_SIZE
 
 class Entity;
 class ParticleEngine;
@@ -18,10 +18,14 @@ typedef std::vector<std::unique_ptr<Entity>> EntityList;
 typedef std::vector<std::unique_ptr<TopLayerObj>> TopLayerObjList;
 typedef std::vector<Enemy*> EnemyList;
 
+class GameState;
+
 class EntityManager {
 public:
 	EntityManager(ResourceManager<sf::Texture, std::string>* resourceManager, ParticleEngine* particleEngine);
 	~EntityManager();
+
+	static int bpm;
 
 	void addTopLayer(TopLayerObj* obj);
 	void addEntity(Entity* entity);
@@ -29,6 +33,8 @@ public:
 	EntityList* getEntities();
 
 	ParticleEngine* getParticleEngine();
+
+	void setGameState(GameState* state); //ew
 
 	void update(int frametime);
 	void render(sf::RenderTarget* target);
@@ -44,6 +50,7 @@ public:
 
 	void screenShake(float magnitude, int time);
 private:
+	GameState* state_;
 	sf::View view;
 	int shake_timer;
 	bool in_shake;
@@ -58,7 +65,11 @@ private:
 	TopLayerObjList top_list_;
 
 	Player* player_;
-	
+
+	float bgy;
+
+	sf::Sprite bg1;
+	sf::Sprite bg2;
 
 	ParticleEngine* particleEngine_;
 };

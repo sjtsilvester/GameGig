@@ -38,14 +38,13 @@ void Enemy::collided(Entity* other) {
 
 void Enemy::shoot() {
 	setSprite("enemy");
-	sf::Texture laserTexture;
 	sf::RectangleShape shape;
-	laserTexture.loadFromFile("laser-texture.bmp");
-	laserTexture.setRepeated(true);
-	shape.setTexture(&laserTexture);
+	sf::Texture* t = &resourceManager_->get("laser-texture");
+	t->setRepeated(true);
+	shape.setTexture(t);
 	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), SCREEN_HEIGHT));
-	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y));
-	TopLayerObj* laser = new TopLayerObj(shape, 100);
+	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y + TILE_SIZE/2));
+	TopLayerObj* laser = new TopLayerObj(shape, 300);
 	entityManager_->addTopLayer(laser);
 	Player* player = entityManager_->getPlayer();
 	if (abs(player->getPosition().x - (shape.getPosition().x + shape.getSize().x / 2.0f)) < shape.getSize().x) {

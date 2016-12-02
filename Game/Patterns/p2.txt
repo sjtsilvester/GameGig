@@ -1,0 +1,8 @@
+e 7 0 none none shoot shoot shoot shoot shoot shoot shoot
+e 6 0 down down none shoot shoot shoot shoot shoot shoot
+e 5 0 down down shoot none shoot shoot shoot shoot shoot
+e 4 0 down down shoot shoot none shoot shoot shoot shoot
+e 3 0 down down shoot shoot shoot none shoot shoot shoot
+e 2 0 down down shoot shoot shoot shoot none shoot shoot
+e 1 0 down down shoot shoot shoot shoot shoot none shoot
+e 0 0 down down shoot shoot shoot shoot shoot shoot none

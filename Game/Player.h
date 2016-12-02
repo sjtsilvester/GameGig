@@ -10,5 +10,8 @@ public:
 	void sfmlEvent(sf::Event evt);
 	void takeDamage(int amount);
 private:
+	int timer_;
+	int reload_;
+
 	void switchColumn(bool left);
 };

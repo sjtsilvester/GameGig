@@ -1,0 +1,8 @@
+e 0 0 shoot down down
+e 1 0 shoot down down
+e 2 0 shoot down down
+e 3 0 shoot down down
+e 4 1 down down shoot
+e 5 1 down down shoot
+e 6 1 down down shoot
+e 7 1 down down shoot
