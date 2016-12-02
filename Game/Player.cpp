@@ -4,7 +4,7 @@
 #include "Bullet.h"
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
-	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(5*TILE_SIZE, 700), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
+	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7, SCREEN_HEIGHT - 2*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
 	health = 10;
 }
 
@@ -23,7 +23,7 @@ void Player::switchColumn(bool left) {
 	if (left && getPosition().x >= TILE_SIZE) {
 		setPosition(getPosition() - sfld::Vector2f(TILE_SIZE, 0));
 	}
-	else if (!left && getPosition().x <= 1024 - TILE_SIZE) {
+	else if (!left && getPosition().x <= SCREEN_WIDTH - TILE_SIZE) {
 		setPosition(getPosition() + sfld::Vector2f(TILE_SIZE, 0));
 	}
 }

@@ -5,6 +5,9 @@
 
 #define TILE_SIZE 32
 
+#define SCREEN_WIDTH 12*TILE_SIZE
+#define SCREEN_HEIGHT 24*TILE_SIZE
+
 class Entity;
 class ParticleEngine;
 class Enemy;

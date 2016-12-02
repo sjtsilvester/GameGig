@@ -40,9 +40,9 @@ void Enemy::shoot() {
 	setSprite("enemy");
 	sf::RectangleShape shape;
 	shape.setFillColor(sf::Color::Blue);
-	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), 768));
+	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), SCREEN_HEIGHT));
 	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y));
-	TopLayerObj* laser = new TopLayerObj(shape, 500);
+	TopLayerObj* laser = new TopLayerObj(shape, 100);
 	entityManager_->addTopLayer(laser);
 	Player* player = entityManager_->getPlayer();
 	if (abs(player->getPosition().x - (shape.getPosition().x + shape.getSize().x / 2.0f)) < shape.getSize().x) {

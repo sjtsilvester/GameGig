@@ -2,6 +2,7 @@
 #include "SFLD.h"
 #include "GameState.h"
 #include "SoundManager.h"
+#include "EntityManager.h"
 
 std::unique_ptr<sf::RenderWindow> SFLD::window_ = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow());
 
@@ -24,7 +25,7 @@ void SFLD::exit() {
 void SFLD::init() {
 	srand((unsigned)time(NULL));
 	exit_ = false;
-	sf::VideoMode vm(1024, 768);
+	sf::VideoMode vm(SCREEN_WIDTH, SCREEN_HEIGHT);
 	window_->create(vm, "Game Gig 2016");
 	stateManager_.push(new GameState());
 }
@@ -59,7 +60,7 @@ void SFLD::handleSfmlEvents() {
 
 		//don't allow resize!
 		if (evt.type == sf::Event::Resized) {
-			window_->setSize(sf::Vector2u(1024, 768));
+			window_->setSize(sf::Vector2u(SCREEN_WIDTH, SCREEN_HEIGHT));
 		}
 		stateManager_.sfmlEvent(evt);
 	}

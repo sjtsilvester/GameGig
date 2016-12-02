@@ -22,12 +22,12 @@ void GameState::start() {
 	resourceManager_.load("player", "player.png");
 	resourceManager_.load("enemy", "enemy.png");
 	resourceManager_.load("bullet", "bullet.png");
-	resourceManager_.load("enemy_shoot", "test3.png");
+	resourceManager_.load("enemy_shoot", "enemy-charging.png");
 
-	bpm = 120;
+	bpm = 120/2;
 	beat_timer = 0;
-	beats_between_pattern = 6;
-	beat_count = 0;
+	beats_between_pattern = 16;
+	beat_count = beats_between_pattern;
 
 	particleEngine_ = std::unique_ptr<ParticleEngine>(new ParticleEngine());
 	entityManager_ = std::unique_ptr<EntityManager>(new EntityManager(&resourceManager_, particleEngine_.get()));
@@ -52,7 +52,7 @@ void GameState::start() {
 	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
 
 	Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
-	pat->loadFile("testpattern.txt");
+	pat->loadFile("p1.txt");
 	patternList1_.push_back(std::unique_ptr<Pattern>(pat));
 
 	Player* player = new Player(&resourceManager_, entityManager_.get());
