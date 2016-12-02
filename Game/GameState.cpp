@@ -59,7 +59,7 @@ void GameState::start() {
 
 	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
 
-	for (int i = 1; i <= 2; i++) {
+	for (int i = 1; i <= 3; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
 		pat->loadFile("pe" + std::to_string(i) + ".txt");
 		patternList1_.push_back(std::unique_ptr<Pattern>(pat));
@@ -70,7 +70,7 @@ void GameState::start() {
 		pat->loadFile("pm" + std::to_string(i) + ".txt");
 		patternList2_.push_back(std::unique_ptr<Pattern>(pat));
 	}
-	for (int i = 1; i <= 1; i++) {
+	for (int i = 1; i <= 2; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
 		pat->loadFile("ph" + std::to_string(i) + ".txt");
 		patternList3_.push_back(std::unique_ptr<Pattern>(pat));
@@ -98,12 +98,15 @@ void GameState::exit() {
 void GameState::runRandomPattern() {
 	PatternList* patternList;
 	if (entityManager_->getScore() < 5) {
+		beats_between_pattern = 5;
 		patternList = &patternList1_;
 	}
 	else if (entityManager_->getScore() < 10) {
+		beats_between_pattern = 10;
 		patternList = &patternList2_;
 	}
 	else{
+		beats_between_pattern = 16;
 		patternList = &patternList3_;
 	}
 

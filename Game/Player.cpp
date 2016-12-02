@@ -7,7 +7,7 @@
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
 	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7 + TILE_SIZE/2, SCREEN_HEIGHT - 2*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
-	health = 10;
+	health = 7;
 	reload_ = (EntityManager::bpm / 60) * 1000 / 2;
 	timer_ = reload_;
 	dead = false;

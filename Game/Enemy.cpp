@@ -20,7 +20,7 @@ void Enemy::baseUpdate(int frame_time) {
 	if (actions[beat_count] == ACTION_SHOOT) {
 		prepareShoot();
 	}
-	if (getPosition().y >= 400) {
+	if (getPosition().y >= SCREEN_HEIGHT/2) {
 		entityManager_->getPlayer()->takeDamage(10);
 	}
 }
