@@ -1,2 +1,2 @@
-e 0 0 left shoot left shoot left shoot left shoot left shoot left shoot right shoot right shoot right shoot right shoot right shoot right shoot
-e 1 0 left shoot left shoot left shoot left shoot left shoot left shoot right shoot right shoot right shoot right shoot right shoot right shoot
+e 7 0 left shoot left shoot left shoot left shoot left shoot left shoot right shoot right shoot right shoot right shoot right shoot right shoot
+e 6 0 left shoot left shoot left shoot left shoot left shoot left shoot right shoot right shoot right shoot right shoot right shoot right shoot
