@@ -23,7 +23,8 @@ public:
 	};
 
 	enum ENTITY_TYPE {
-		TYPE_DEFAULT
+		TYPE_DEFAULT,
+		TYPE_BULLET
 	};
 
 	virtual void constructEntity(ResourceManager<sf::Texture, std::string>* resourceManager, std::string spriteName, EntityManager* entityManager, sfld::Vector2f position,
@@ -50,11 +51,12 @@ public:
 	void setPosition(sfld::Vector2f position);
 
 	virtual void takeDamage(int amount);
+	void destroy();
 protected:
 	int health;
 
 	bool rotating_;
-	void destroy();
+	
 
 	void centreOrigin();
 	void move(sfld::Vector2f direction, int frameTime, float magnitude); //moves entity, including collisions with walls

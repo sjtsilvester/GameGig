@@ -10,7 +10,7 @@ void TopLayerObj::render(sf::RenderTarget* target) {
 
 bool TopLayerObj::toRemove() const {
 	return (time_ >= duration_);
-}
+}	
 
 void TopLayerObj::update(int frame_time) {
 	time_ += frame_time;

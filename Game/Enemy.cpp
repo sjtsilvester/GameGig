@@ -3,11 +3,12 @@
 #include "Enemy.h"
 #include "TopLayerObj.h"
 #include "Player.h"
+#include "ParticleEngine.h"
 
 Enemy::Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, sfld::Vector2f initial_pos, std::vector<Action> a) {
     actions = a;
     beat_count = 0;
-    constructEntity(resourceManager, "enemy", entityManager,  initial_pos, Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
+    constructEntity(resourceManager, "enemy", entityManager,  initial_pos, Entity::SHAPE_SQUARE, Entity::DYNAMIC_STATIC, Entity::TYPE_DEFAULT);
 }
 
 void Enemy::update(int frame_time) {
@@ -18,10 +19,21 @@ void Enemy::baseUpdate(int frame_time) {
 	if (actions[beat_count] == ACTION_SHOOT) {
 		prepareShoot();
 	}
+	if (getPosition().y >= 400) {
+		entityManager_->getPlayer()->takeDamage(10);
+	}
 }
 
 void Enemy::prepareShoot() {
 	setSprite("enemy_shoot");
+}
+
+void Enemy::collided(Entity* other) {
+	if (other->getType() == TYPE_BULLET) {
+		entityManager_->getParticleEngine()->generateMiniExplosionEffect(getPosition());
+		entityManager_->screenShake(4.0f, 200);
+		destroy();
+	}
 }
 
 void Enemy::shoot() {

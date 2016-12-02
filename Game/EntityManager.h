@@ -34,9 +34,19 @@ public:
 
 	void beat();
 
+	void clearEnemies();
+
 	void setPlayer(Player* player);
 	Player* getPlayer();
+
+	void screenShake(float magnitude, int time);
 private:
+	sf::View view;
+	int shake_timer;
+	bool in_shake;
+	int shake_length;
+	float shake_magnitude;
+
 	ResourceManager<sf::Texture, std::string>* resourceManager_;
 
 	EntityList push_queue_;

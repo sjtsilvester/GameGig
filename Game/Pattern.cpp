@@ -5,6 +5,7 @@
 #include "EntityManager.h"
 #include "StaticObj.h"
 #include "Enemy.h"
+#include <fstream>
 
 Pattern::Pattern(EntityManager* entity_manager, ResourceManager<sf::Texture, std::string>* resource_manager)
 	: entity_manager_(entity_manager), resource_manager_(resource_manager){
@@ -22,16 +23,16 @@ void split(const std::string &s, char delim, std::vector<std::string> &elems) {
 	}
 }
 
-void Pattern::loadFile(std::filename) {
-	std:ifstream file(filename);
+void Pattern::loadFile(std::string filename) {
+	std::ifstream file(filename);
 	std::string str;
 	std::vector<std::string> parts;
 
 	while (std::getline(file, str)) {
 		std::vector<std::string> parts;
-		split(str, " ", parts);
+		split(str, ' ', parts);
 		std::string enemy_id = parts[0];
-		sfld::Vector2f position = Vector2f(std::stoi(parts[1]), std::stoi(parts[2]));
+		sfld::Vector2f position = Vector2f(std::stoi(parts[1])*TILE_SIZE, std::stoi(parts[2])*TILE_SIZE);
 		std::vector<Enemy::Action> actions;
 		for (int i = 2; i < parts.size(); i++) {
 			std::string w = parts[i];
@@ -45,6 +46,9 @@ void Pattern::loadFile(std::filename) {
 				actions.push_back(Enemy::ACTION_RIGHT);
 			} else if (w == "shoot") {
 				actions.push_back(Enemy::ACTION_SHOOT);
+			}
+			else if (w == "none") {
+				actions.push_back(Enemy::ACTION_NONE);
 			}
 		}
 		addData(PatternData(actions, position, enemy_id));

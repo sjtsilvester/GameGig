@@ -9,6 +9,10 @@
 
 EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resourceManager, ParticleEngine* particleEngine) 
 	: resourceManager_(resourceManager) , particleEngine_(particleEngine){
+	view = SFLD::window_->getDefaultView();
+	in_shake = false;
+	shake_timer = 0;
+	shake_length = 0;
 }
 
 EntityManager::~EntityManager() = default;
@@ -35,8 +39,17 @@ EntityList* EntityManager::getEntities() {
 }
 
 void EntityManager::update(int frameTime) {
+	particleEngine_->update(frameTime);
 	for (auto& it : entities_) {
 		it->update(frameTime);
+	}
+	for (auto& it = enemies_.begin(); it != enemies_.end();) {
+		if ((*it)->isDestroyed()) {
+			it = enemies_.erase(it);
+		}
+		else {
+			it++;
+		}
 	}
 	for (auto& it = entities_.begin(); it != entities_.end();) {
 		if ((*it)->isDestroyed()) {
@@ -63,6 +76,21 @@ void EntityManager::update(int frameTime) {
 			it++;
 		}
 	}
+
+	if (in_shake) {
+		float xdisp = (rand() % 21 - 10) / 10.0f;
+		float ydisp = (rand() % 21 - 10) / 10.0f;
+		view.setCenter(SFLD::window_->getDefaultView().getCenter() + sfld::Vector2f(xdisp*shake_magnitude, ydisp*shake_magnitude));
+		SFLD::window_->setView(view);
+		shake_timer += frameTime;
+		if (shake_timer >= shake_length) {
+			shake_timer = 0;
+			view = SFLD::window_->getDefaultView();
+			SFLD::window_->setView(view);
+			in_shake = false;
+		}
+	}
+
 	push_queue_.clear();
 }
 
@@ -76,8 +104,21 @@ void EntityManager::setPlayer(Player* player) {
 	player_ = player;
 }
 
+void EntityManager::clearEnemies() {
+	for (auto& it : enemies_) {
+		it->destroy();
+	}
+}
+
 Player* EntityManager::getPlayer() {
 	return player_;
+}
+
+void EntityManager::screenShake(float magnitude, int time) {
+	in_shake = true;
+	shake_magnitude = magnitude;
+	shake_length = time;
+	shake_timer = 0;
 }
 
 void EntityManager::render(sf::RenderTarget* target) {
@@ -88,6 +129,7 @@ void EntityManager::render(sf::RenderTarget* target) {
 	for (auto& it : top_list_) {
 		it->render(target);
 	}
+	particleEngine_->renderParticles(target);
 }
 
 void EntityManager::sfmlEvent(sf::Event evt) {

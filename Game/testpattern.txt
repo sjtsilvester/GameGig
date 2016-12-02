@@ -1,0 +1,4 @@
+e 5 3 down down shoot right left shoot down down
+e 7 3 down down shoot right left shoot down down
+e 9 3 down down shoot right left shoot down down
+e 3 3 down down shoot right left shoot down down

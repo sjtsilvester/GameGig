@@ -13,6 +13,7 @@ public:
 	
 	void runPattern();
 	void addData(PatternData data);
+	void loadFile(std::string filename);
 private:
 	std::vector<PatternData> pattern_data_;
 
