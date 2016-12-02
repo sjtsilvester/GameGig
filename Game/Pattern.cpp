@@ -32,7 +32,7 @@ void Pattern::loadFile(std::string filename) {
 		std::vector<std::string> parts;
 		split(str, ' ', parts);
 		std::string enemy_id = parts[0];
-		sfld::Vector2f position = Vector2f(std::stoi(parts[1])*TILE_SIZE, std::stoi(parts[2])*TILE_SIZE);
+		sfld::Vector2f position = Vector2f(std::stoi(parts[1])*TILE_SIZE + TILE_SIZE/2, std::stoi(parts[2])*TILE_SIZE + TILE_SIZE/2);
 		std::vector<Enemy::Action> actions;
 		for (int i = 2; i < parts.size(); i++) {
 			std::string w = parts[i];

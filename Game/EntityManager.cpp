@@ -6,6 +6,9 @@
 #include "ParticleEngine.h"
 #include "Enemy.h"
 #include "TopLayerObj.h"
+#include "GameState.h"
+
+int EntityManager::bpm = 60;
 
 EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resourceManager, ParticleEngine* particleEngine) 
 	: resourceManager_(resourceManager) , particleEngine_(particleEngine){
@@ -13,9 +16,16 @@ EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resource
 	in_shake = false;
 	shake_timer = 0;
 	shake_length = 0;
+	bg1 = sf::Sprite(resourceManager_->get("background"));
+	bg2 = sf::Sprite(resourceManager_->get("background"));
+	bgy = 0;
 }
 
 EntityManager::~EntityManager() = default;
+
+void EntityManager::setGameState(GameState* state) {
+	state_ = state;
+}
 
 void EntityManager::addTopLayer(TopLayerObj* obj) {
 	top_list_.push_back(std::unique_ptr<TopLayerObj>(obj));
@@ -39,6 +49,14 @@ EntityList* EntityManager::getEntities() {
 }
 
 void EntityManager::update(int frameTime) {
+	bg1.setPosition(0, bgy - SCREEN_HEIGHT);
+	bg2.setPosition(0, bgy);
+
+	if (bgy > SCREEN_HEIGHT) {
+		bgy = 0;
+	}
+	bgy += 1.0f / 5.f;
+
 	particleEngine_->update(frameTime);
 	for (auto& it : entities_) {
 		it->update(frameTime);
@@ -108,6 +126,7 @@ void EntityManager::clearEnemies() {
 	for (auto& it : enemies_) {
 		it->destroy();
 	}
+	state_->gotoNext();
 }
 
 Player* EntityManager::getPlayer() {
@@ -122,6 +141,8 @@ void EntityManager::screenShake(float magnitude, int time) {
 }
 
 void EntityManager::render(sf::RenderTarget* target) {
+	target->draw(bg1);
+	target->draw(bg2);
 	particleEngine_->renderStatics(target);
 	for (auto& it : entities_) {
 		it->render(target);

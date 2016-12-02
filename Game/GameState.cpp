@@ -8,12 +8,15 @@
 #include "PatternData.h"
 #include "SoundManager.h"
 
-
 GameState::GameState() = default;
 GameState::~GameState() = default;
 
 void GameState::sfmlEvent(sf::Event evt) {
 	entityManager_->sfmlEvent(evt);
+}
+
+void GameState::gotoNext() {
+	beat_count = beats_between_pattern;
 }
 
 void GameState::start() {
@@ -23,15 +26,15 @@ void GameState::start() {
 	resourceManager_.load("enemy", "enemy.png");
 	resourceManager_.load("bullet", "bullet.png");
 	resourceManager_.load("enemy_shoot", "enemy-charging.png");
+	resourceManager_.load("background", "background.png");
 
-	bpm = 120/2;
 	beat_timer = 0;
 	beats_between_pattern = 16;
 	beat_count = beats_between_pattern;
 
 	particleEngine_ = std::unique_ptr<ParticleEngine>(new ParticleEngine());
 	entityManager_ = std::unique_ptr<EntityManager>(new EntityManager(&resourceManager_, particleEngine_.get()));
-
+	entityManager_->setGameState(this);
 	/*Pattern* test = new Pattern(entityManager_.get(), &resourceManager_);
 	std::vector<Enemy::Action> actions;
 	actions.push_back(Enemy::ACTION_DOWN);
@@ -51,9 +54,11 @@ void GameState::start() {
 
 	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
 
-	Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
-	pat->loadFile("p1.txt");
-	patternList1_.push_back(std::unique_ptr<Pattern>(pat));
+	for (int i = 1; i <= 5; i++) {
+		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
+		pat->loadFile("p" + std::to_string(i) + ".txt");
+		patternList1_.push_back(std::unique_ptr<Pattern>(pat));
+	}
 
 	Player* player = new Player(&resourceManager_, entityManager_.get());
 	entityManager_->setPlayer(player);
@@ -84,7 +89,7 @@ void GameState::runRandomPattern() {
 
 void GameState::update(int frame_time) {
 	beat_timer += frame_time;
-	if (beat_timer > (60.0f / (float)bpm) * 1000.0f) {
+	if (beat_timer > (60.0f / (float)EntityManager::bpm) * 1000.0f) {
 		entityManager_->beat();
 		beat_timer = 0;
 		beat_count++;

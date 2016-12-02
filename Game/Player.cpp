@@ -4,12 +4,15 @@
 #include "Bullet.h"
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
-	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7, SCREEN_HEIGHT - 2*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
+	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7 + TILE_SIZE/2, SCREEN_HEIGHT - 2*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
 	health = 10;
+	reload_ = (EntityManager::bpm / 60) * 1000 / 2;
+	timer_ = reload_;
 }
 
 void Player::update(int frame_time) {
 	using namespace sf;
+	timer_ += frame_time;
 }
 
 void Player::takeDamage(int amount) {
@@ -37,9 +40,12 @@ void Player::sfmlEvent(sf::Event evt) {
 			switchColumn(false);
 		}
 		else if (evt.key.code == sf::Keyboard::Space) {
-			entityManager_->addEntity(new Bullet(resourceManager_, entityManager_,
-				"bullet", getPosition() + sfld::Vector2f(0, -TILE_SIZE), sfld::Vector2f(0, -1),
-				1.0f));
+			if (timer_ >= reload_) {
+				timer_ = 0;
+				entityManager_->addEntity(new Bullet(resourceManager_, entityManager_,
+					"bullet", getPosition() + sfld::Vector2f(0, -TILE_SIZE), sfld::Vector2f(0, -1),
+					1.0f));
+			}
 		}
 	}
 }

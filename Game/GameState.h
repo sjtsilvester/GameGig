@@ -22,10 +22,10 @@ public:
 	void update(int frame_time);
 	void render(sf::RenderTarget* target);
 
+	void gotoNext();
 private:
 	void runRandomPattern();
 
-	int bpm;
 	int beat_timer;
 	int beats_between_pattern;
 	int beat_count;
