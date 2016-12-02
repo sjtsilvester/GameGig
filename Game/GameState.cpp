@@ -21,6 +21,10 @@ void GameState::gotoNext() {
 
 void GameState::start() {
 	SoundManager::addMusic("main", "media/music/gjmusic.wav");
+	SoundManager::add("enemy_laser", "media/sounds/enemy_laser.wav");
+	SoundManager::add("player_gun", "media/sounds/player_gun.wav");
+	SoundManager::add("enemy_explosion", "media/sounds/enemy_explosion.wav");
+	SoundManager::add("player_explosion", "media/sounds/player_explosion.wav");
 	resourceManager_.setDirectory("media/images/");
 	resourceManager_.load("player", "player.png");
 	resourceManager_.load("enemy", "enemy.png");

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "EntityManager.h"
+#include "SoundManager.h"
 #include "Bullet.h"
 #include "ParticleEngine.h"
 
@@ -22,6 +23,7 @@ int Player::getHealth() const {
 
 void Player::takeDamage(int amount) {
 	health -= 1;
+    SoundManager::play("player_explosion");
 	entityManager_->clearEnemies();
 	entityManager_->screenShake(10.0f, 500);
 	entityManager_->getParticleEngine()->generateExplosionEffect(getPosition());
@@ -51,6 +53,7 @@ void Player::sfmlEvent(sf::Event evt) {
 				entityManager_->addEntity(new Bullet(resourceManager_, entityManager_,
 					"bullet", getPosition() + sfld::Vector2f(0, -TILE_SIZE), sfld::Vector2f(0, -1),
 					1.0f));
+				SoundManager::play("player_gun");
 			}
 		}
 	}

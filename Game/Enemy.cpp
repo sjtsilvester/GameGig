@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "SoundManager.h"
 #include "EntityManager.h"
 #include "Enemy.h"
 #include "TopLayerObj.h"
@@ -33,6 +34,7 @@ void Enemy::collided(Entity* other) {
 		entityManager_->increaseScore();
 		entityManager_->getParticleEngine()->generateMiniExplosionEffect(getPosition());
 		entityManager_->screenShake(4.0f, 200);
+		SoundManager::play("enemy_explosion");
 		destroy();
 	}
 }
@@ -47,6 +49,7 @@ void Enemy::shoot() {
 	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y + TILE_SIZE/2));
 	TopLayerObj* laser = new TopLayerObj(shape, 300);
 	entityManager_->addTopLayer(laser);
+    SoundManager::play("enemy_laser");
 	Player* player = entityManager_->getPlayer();
 	if (abs(player->getPosition().x - (shape.getPosition().x + shape.getSize().x / 2.0f)) < shape.getSize().x) {
 		player->takeDamage(10);
