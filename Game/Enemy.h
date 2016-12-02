@@ -8,7 +8,7 @@ public:
     vector<Action> actions;
     int beat_count;
 
-    Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, int initial_x, int initial_y);
+    Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, int initial_x, int initial_y, vector<Action> actions);
 
     void update(int frame_time);
     void onBeat();
