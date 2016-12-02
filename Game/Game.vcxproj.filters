@@ -66,6 +66,9 @@
     <ClCompile Include="Pattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TopLayerObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EntityManager.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PatternData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TopLayerObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,12 +3,16 @@
 #include "EntityManager.h"
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
-	constructEntity(resourceManager, "test1", entityManager, sfld::Vector2f(50, 50), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
+	constructEntity(resourceManager, "test1", entityManager, sfld::Vector2f(40, 700), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
 }
 
 void Player::update(int frame_time) {
 	using namespace sf;
 	
+}
+
+void Player::takeDamage(int amount) {
+	std::cout << "PLAYER WAS HIT!" << std::endl;
 }
 
 void Player::switchColumn(bool left) {
@@ -22,7 +26,6 @@ void Player::switchColumn(bool left) {
 
 void Player::sfmlEvent(sf::Event evt) {
 	if (evt.type == evt.KeyPressed) {
-		std::cout << "key pressed" << std::endl;
 		if (evt.key.code == sf::Keyboard::A) {
 			switchColumn(true);
 		}

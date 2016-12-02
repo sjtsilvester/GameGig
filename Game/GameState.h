@@ -7,6 +7,8 @@ class EntityManager;
 class ParticleEngine;
 class Pattern;
 
+typedef std::vector<std::unique_ptr<Pattern>> PatternList;
+
 class GameState : public BaseState {
 public:
 	GameState();
@@ -21,12 +23,16 @@ public:
 	void render(sf::RenderTarget* target);
 
 private:
+	void runRandomPattern();
+
 	int bpm;
 	int beat_timer;
+	int beats_between_pattern;
+	int beat_count;
 
 	ResourceManager<sf::Texture, std::string> resourceManager_;
 	std::unique_ptr<EntityManager> entityManager_;
 	std::unique_ptr<ParticleEngine> particleEngine_;
 
-	std::vector<std::unique_ptr<Pattern>> patternList1_;
+	PatternList patternList1_;
 };

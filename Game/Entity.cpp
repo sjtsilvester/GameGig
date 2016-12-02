@@ -19,6 +19,17 @@ void Entity::constructEntity(
 	type_ = type;
 	destroyed_ = false;
 	rotating_ = false;
+	health = 100;
+}
+
+void Entity::setSprite(std::string tex_name) {
+	sprite_ = sf::Sprite(resourceManager_->get(tex_name));
+	centreOrigin();
+	setPosition(getPosition());
+}
+
+void Entity::takeDamage(int amount) {
+	health -= amount;
 }
 
 void Entity::sfmlEvent(sf::Event evt) {

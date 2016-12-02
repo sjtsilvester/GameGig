@@ -38,6 +38,7 @@ public:
 
 	sfld::Vector2f getPosition() const;
 	sf::Sprite getSprite() const;
+	void setSprite(std::string tex_name);
 
 	bool contains(sfld::Vector2f point) const;
 
@@ -47,7 +48,11 @@ public:
 
 	bool isDestroyed() const;
 	void setPosition(sfld::Vector2f position);
+
+	virtual void takeDamage(int amount);
 protected:
+	int health;
+
 	bool rotating_;
 	void destroy();
 

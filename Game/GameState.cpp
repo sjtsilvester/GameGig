@@ -5,6 +5,7 @@
 #include "StaticObj.h"
 #include "ParticleEngine.h"
 #include "Pattern.h"
+#include "PatternData.h"
 
 GameState::GameState() = default;
 GameState::~GameState() = default;
@@ -16,19 +17,41 @@ void GameState::sfmlEvent(sf::Event evt) {
 void GameState::start() {
 	resourceManager_.setDirectory("media/images/");
 	resourceManager_.load("test1", "test1.png");
-	resourceManager_.load("test2", "test2.png");
+	resourceManager_.load("enemy", "test2.png");
+	resourceManager_.load("enemy_shoot", "test3.png");
+
 
 	bpm = 120;
 	beat_timer = 0;
+	beats_between_pattern = 6;
+	beat_count = 0;
 
 	particleEngine_ = std::unique_ptr<ParticleEngine>(new ParticleEngine());
 	entityManager_ = std::unique_ptr<EntityManager>(new EntityManager(&resourceManager_, particleEngine_.get()));
 
-	patternList1_.push_back(std::unique_ptr<Pattern>(new Pattern(entityManager_.get(), &resourceManager_)));
-	
+	Pattern* test = new Pattern(entityManager_.get(), &resourceManager_);
+	std::vector<Enemy::Action> actions;
+	actions.push_back(Enemy::ACTION_DOWN);
+	actions.push_back(Enemy::ACTION_LEFT);
+	actions.push_back(Enemy::ACTION_DOWN);
+	actions.push_back(Enemy::ACTION_LEFT);
+	actions.push_back(Enemy::ACTION_SHOOT);
+	actions.push_back(Enemy::ACTION_DOWN);
+	actions.push_back(Enemy::ACTION_RIGHT);
+	actions.push_back(Enemy::ACTION_DOWN);
+	actions.push_back(Enemy::ACTION_RIGHT);
 
-	entityManager_->addEntity(new Player(&resourceManager_, entityManager_.get()));
-	entityManager_->addEntity(new StaticObj(&resourceManager_, entityManager_.get(), "test2", sfld::Vector2f(200, 200), Entity::SHAPE_SQUARE, Entity::TYPE_DEFAULT));
+	for (int x = 40; x <= 1000; x += 3*TILE_SIZE) {
+		PatternData data(actions, sfld::Vector2f(x, 50), "e");
+		test->addData(data);
+	}
+
+	patternList1_.push_back(std::unique_ptr<Pattern>(test));
+
+	Player* player = new Player(&resourceManager_, entityManager_.get());
+	entityManager_->setPlayer(player);
+	entityManager_->addEntity(player);
+	//entityManager_->addEntity(new StaticObj(&resourceManager_, entityManager_.get(), "test2", sfld::Vector2f(200, 200), Entity::SHAPE_SQUARE, Entity::TYPE_DEFAULT));
 }
 
 void GameState::pause() {
@@ -43,11 +66,24 @@ void GameState::exit() {
 
 }
 
+void GameState::runRandomPattern() {
+	//TODO: select which patternlist. For now just use patternList1_.
+
+	PatternList* patternList = &patternList1_;
+	int r = rand() % patternList->size();
+	patternList->at(r)->runPattern();
+}
+
 void GameState::update(int frame_time) {
 	beat_timer += frame_time;
 	if (beat_timer > (60.0f / (float)bpm) * 1000.0f) {
 		entityManager_->beat();
 		beat_timer = 0;
+		beat_count++;
+	}
+	if (beat_count > beats_between_pattern) {
+		beat_count = 0;
+		runRandomPattern();
 	}
 	entityManager_->update(frame_time);
 }
