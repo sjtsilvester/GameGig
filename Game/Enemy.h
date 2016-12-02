@@ -1,0 +1,4 @@
+#ifndef GAMEGIG_ENEMY_H
+#define GAMEGIG_ENEMY_H
+
+#endif //GAMEGIG_ENEMY_H
