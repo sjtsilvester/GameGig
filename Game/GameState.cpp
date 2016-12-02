@@ -7,6 +7,7 @@
 #include "Pattern.h"
 #include "PatternData.h"
 
+
 GameState::GameState() = default;
 GameState::~GameState() = default;
 

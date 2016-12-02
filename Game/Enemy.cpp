@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "TopLayerObj.h"
 #include "Player.h"
+#include "GameState.h"
 
 Enemy::Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, sfld::Vector2f initial_pos, std::vector<Action> a) {
     actions = a;
@@ -24,11 +25,16 @@ void Enemy::prepareShoot() {
 	setSprite("enemy_shoot");
 }
 
+
+
 void Enemy::shoot() {
+	sf::Texture LaserImage;
+	LaserImage.loadFromFImage(/*filename*/);
+	LaserImage.setRepeated(false);
 	setSprite("enemy");
 	sf::RectangleShape shape;
-	shape.setFillColor(sf::Color::Blue);
-	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), 768));
+	shape.setTexture(&LaserImage);
+	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), SCREEN_HEIGHT));
 	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y));
 	TopLayerObj* laser = new TopLayerObj(shape, 500);
 	entityManager_->addTopLayer(laser);
@@ -37,6 +43,8 @@ void Enemy::shoot() {
 		player->takeDamage(10);
 	}
 }
+
+
 
 void Enemy::onBeat() {
     Action action = actions[beat_count];
