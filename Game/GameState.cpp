@@ -16,6 +16,7 @@ void GameState::sfmlEvent(sf::Event evt) {
 	entityManager_->sfmlEvent(evt);
 }
 
+//starts game
 void GameState::start() {
 	SoundManager::addMusic("main", "media/music/gjmusic.wav");
 	resourceManager_.setDirectory("media/images/");
@@ -74,6 +75,7 @@ void GameState::exit() {
 
 }
 
+//runs a random pattern from the pattern list
 void GameState::runRandomPattern() {
 	//TODO: select which patternlist. For now just use patternList1_.
 

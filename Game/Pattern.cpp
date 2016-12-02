@@ -24,7 +24,7 @@ void split(const std::string &s, char delim, std::vector<std::string> &elems) {
 }
 
 void Pattern::loadFile(std::string filename) {
-	std::ifstream file(filename);
+	std::ifstream file("Patterns/" + filename);
 	std::string str;
 	std::vector<std::string> parts;
 
