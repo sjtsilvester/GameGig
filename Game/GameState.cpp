@@ -27,6 +27,7 @@ void GameState::start() {
 	resourceManager_.load("bullet", "bullet.png");
 	resourceManager_.load("enemy_shoot", "enemy-charging.png");
 	resourceManager_.load("background", "background.png");
+	resourceManager_.load("laser-texture", "laser-texture.bmp");
 
 	beat_timer = 0;
 	beats_between_pattern = 16;
@@ -54,7 +55,7 @@ void GameState::start() {
 
 	patternList1_.push_back(std::unique_ptr<Pattern>(test));*/
 
-	for (int i = 1; i <= 5; i++) {
+	for (int i = 1; i <= 7; i++) {
 		Pattern* pat = new Pattern(entityManager_.get(), &resourceManager_);
 		pat->loadFile("p" + std::to_string(i) + ".txt");
 		patternList1_.push_back(std::unique_ptr<Pattern>(pat));
