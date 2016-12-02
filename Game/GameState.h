@@ -5,6 +5,7 @@
 
 class EntityManager;
 class ParticleEngine;
+class Pattern;
 
 class GameState : public BaseState {
 public:
@@ -26,4 +27,6 @@ private:
 	ResourceManager<sf::Texture, std::string> resourceManager_;
 	std::unique_ptr<EntityManager> entityManager_;
 	std::unique_ptr<ParticleEngine> particleEngine_;
+
+	std::vector<std::unique_ptr<Pattern>> patternList1_;
 };

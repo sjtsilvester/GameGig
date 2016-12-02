@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "ResourceManager.h"
+#include "PatternData.h"
 
 class EntityManager;
 
@@ -11,9 +12,9 @@ public:
 	~Pattern();
 	
 	void runPattern();
-	void add(sfld::Vector2f position, std::string id);
+	void addData(PatternData data);
 private:
-	std::vector<std::pair<sfld::Vector2f, std::string>>	contents_;
+	std::vector<PatternData> pattern_data_;
 
 	EntityManager* entity_manager_;
 	ResourceManager<sf::Texture, std::string>* resource_manager_;

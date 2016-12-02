@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "StaticObj.h"
 #include "ParticleEngine.h"
+#include "Pattern.h"
 
 GameState::GameState() = default;
 GameState::~GameState() = default;
@@ -22,6 +23,9 @@ void GameState::start() {
 
 	particleEngine_ = std::unique_ptr<ParticleEngine>(new ParticleEngine());
 	entityManager_ = std::unique_ptr<EntityManager>(new EntityManager(&resourceManager_, particleEngine_.get()));
+
+	patternList1_.push_back(std::unique_ptr<Pattern>(new Pattern(entityManager_.get(), &resourceManager_)));
+	
 
 	entityManager_->addEntity(new Player(&resourceManager_, entityManager_.get()));
 	entityManager_->addEntity(new StaticObj(&resourceManager_, entityManager_.get(), "test2", sfld::Vector2f(200, 200), Entity::SHAPE_SQUARE, Entity::TYPE_DEFAULT));

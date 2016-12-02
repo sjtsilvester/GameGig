@@ -4,13 +4,15 @@
 
 class Enemy : public Entity {
 public:
-    static enum Action {Left, Right, Up, Down, Shoot};
-    vector<Action> actions;
-    int beat_count;
+    enum Action {ACTION_LEFT, ACTION_RIGHT, ACTION_UP, ACTION_DOWN, ACTION_SHOOT};
 
-    Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, int initial_x, int initial_y, vector<Action> actions);
+    Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, sfld::Vector2f initial_pos, std::vector<Action> actions);
 
-    void update(int frame_time);
+    virtual void update(int frame_time);
     void onBeat();
-    void shoot();
+    virtual void shoot();
+
+protected:
+	std::vector<Action> actions;
+	int beat_count;
 };

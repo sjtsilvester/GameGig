@@ -7,8 +7,10 @@
 
 class Entity;
 class ParticleEngine;
+class Enemy;
 
 typedef std::vector<std::unique_ptr<Entity>> EntityList;
+typedef std::vector<Enemy*> EnemyList;
 
 class EntityManager {
 public:
@@ -16,6 +18,7 @@ public:
 	~EntityManager();
 
 	void addEntity(Entity* entity);
+	void addEnemy(Enemy* enemy);
 	EntityList* getEntities();
 
 	ParticleEngine* getParticleEngine();
@@ -31,6 +34,7 @@ private:
 
 	EntityList push_queue_;
 	EntityList entities_;
+	EnemyList enemies_;
 
 	ParticleEngine* particleEngine_;
 };

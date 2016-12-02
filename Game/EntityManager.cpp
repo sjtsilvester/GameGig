@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Entity.h"
 #include "ParticleEngine.h"
+#include "Enemy.h"
 
 EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resourceManager, ParticleEngine* particleEngine) 
 	:resourceManager_(resourceManager) , particleEngine_(particleEngine){
@@ -13,6 +14,11 @@ EntityManager::~EntityManager() = default;
 
 void EntityManager::addEntity(Entity* entity) {
 	push_queue_.push_back(std::unique_ptr<Entity>(entity));
+}
+
+void EntityManager::addEnemy(Enemy* enemy) {
+	enemies_.push_back(enemy);
+	addEntity((Entity*)enemy);
 }
 
 ParticleEngine* EntityManager::getParticleEngine() {
@@ -43,8 +49,9 @@ void EntityManager::update(int frameTime) {
 }
 
 void EntityManager::beat() {
-	std::cout << "TODO: implement beat\n";
-	//iterate through enemies and do beat
+	for (auto& it : enemies_) {
+		it->onBeat();
+	}
 }
 
 void EntityManager::render(sf::RenderTarget* target) {

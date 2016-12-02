@@ -56,7 +56,6 @@ protected:
 
 	void doOffset(sfld::Vector2f offset);
 
-
 	ResourceManager<sf::Texture, std::string>* resourceManager_;
 	EntityManager* entityManager_;
 	sf::Sprite sprite_;
