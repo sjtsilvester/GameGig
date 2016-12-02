@@ -21,6 +21,10 @@ void Entity::constructEntity(
 	rotating_ = false;
 }
 
+void Entity::sfmlEvent(sf::Event evt) {
+	//...
+}
+
 bool Entity::isDestroyed() const {
 	return destroyed_;
 }

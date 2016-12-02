@@ -42,9 +42,20 @@ void EntityManager::update(int frameTime) {
 	push_queue_.clear();
 }
 
+void EntityManager::beat() {
+	std::cout << "TODO: implement beat\n";
+	//iterate through enemies and do beat
+}
+
 void EntityManager::render(sf::RenderTarget* target) {
 	particleEngine_->renderStatics(target);
 	for (auto& it : entities_) {
 		it->render(target);
+	}
+}
+
+void EntityManager::sfmlEvent(sf::Event evt) {
+	for (auto& it : entities_) {
+		it->sfmlEvent(evt);
 	}
 }

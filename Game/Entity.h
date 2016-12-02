@@ -10,6 +10,8 @@ public:
 	Entity();
 	~Entity();
 
+	virtual void sfmlEvent(sf::Event evt);
+
 	enum ENTITY_DYNAMIC {
 		DYNAMIC_MOVING,
 		DYNAMIC_STATIC

@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEngine.cpp" />
+    <ClCompile Include="Pattern.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="SFLD.cpp" />
@@ -142,12 +144,14 @@
   <ItemGroup>
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEngine.h" />
+    <ClInclude Include="Pattern.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projection.h" />
     <ClInclude Include="ResourceManager.h" />

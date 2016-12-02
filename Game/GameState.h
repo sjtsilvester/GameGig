@@ -20,6 +20,9 @@ public:
 	void render(sf::RenderTarget* target);
 
 private:
+	int bpm;
+	int beat_timer;
+
 	ResourceManager<sf::Texture, std::string> resourceManager_;
 	std::unique_ptr<EntityManager> entityManager_;
 	std::unique_ptr<ParticleEngine> particleEngine_;

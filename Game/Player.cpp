@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "EntityManager.h"
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
 	constructEntity(resourceManager, "test1", entityManager, sfld::Vector2f(50, 50), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
@@ -7,19 +8,26 @@ Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, Entit
 
 void Player::update(int frame_time) {
 	using namespace sf;
-	sfld::Vector2f dir(0, 0);
-	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		dir.y--;
-	}
-	if (Keyboard::isKeyPressed(Keyboard::A)) {
-		dir.x--;
-	}
-	if (Keyboard::isKeyPressed(Keyboard::S)) {
-		dir.y++;
-	}
-	if (Keyboard::isKeyPressed(Keyboard::D)) {
-		dir.x++;
-	}
+	
+}
 
-	move(dir.normalise(), frame_time, 0.5f);
+void Player::switchColumn(bool left) {
+	if (left && getPosition().x >= TILE_SIZE) {
+		setPosition(getPosition() - sfld::Vector2f(TILE_SIZE, 0));
+	}
+	else if (!left && getPosition().x <= 2014 - TILE_SIZE) {
+		setPosition(getPosition() + sfld::Vector2f(TILE_SIZE, 0));
+	}
+}
+
+void Player::sfmlEvent(sf::Event evt) {
+	if (evt.type == evt.KeyPressed) {
+		std::cout << "key pressed" << std::endl;
+		if (evt.key.code == sf::Keyboard::A) {
+			switchColumn(true);
+		}
+		else if (evt.key.code == sf::Keyboard::D) {
+			switchColumn(false);
+		}
+	}
 }

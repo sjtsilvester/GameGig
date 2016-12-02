@@ -23,6 +23,9 @@ public:
 	void update(int frametime);
 	void render(sf::RenderTarget* target);
 
+	void sfmlEvent(sf::Event evt);
+
+	void beat();
 private:
 	ResourceManager<sf::Texture, std::string>* resourceManager_;
 
