@@ -11,4 +11,6 @@ public:
     Enemy(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager, int initial_x, int initial_y);
 
     void update(int frame_time);
+    void onBeat();
+    void shoot();
 };

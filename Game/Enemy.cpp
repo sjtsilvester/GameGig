@@ -32,4 +32,5 @@ void Enemy::onBeat() {
     } else if (action == Action.Shoot) {
         shoot();
     }
+    beat_count++;
 }
