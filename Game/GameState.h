@@ -35,4 +35,6 @@ private:
 	std::unique_ptr<ParticleEngine> particleEngine_;
 
 	PatternList patternList1_;
+	PatternList patternList2_;
+	PatternList patternList3_;
 };

@@ -1,2 +1,0 @@
-e 4 0 left shoot down
-e 5 0 shoot right down
