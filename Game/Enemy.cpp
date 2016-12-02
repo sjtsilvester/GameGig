@@ -30,6 +30,7 @@ void Enemy::prepareShoot() {
 
 void Enemy::collided(Entity* other) {
 	if (other->getType() == TYPE_BULLET) {
+		entityManager_->increaseScore();
 		entityManager_->getParticleEngine()->generateMiniExplosionEffect(getPosition());
 		entityManager_->screenShake(4.0f, 200);
 		destroy();

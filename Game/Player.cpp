@@ -5,7 +5,7 @@
 #include "ParticleEngine.h"
 
 Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, EntityManager* entityManager) {
-	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7 + TILE_SIZE/2, SCREEN_HEIGHT - 1*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
+	constructEntity(resourceManager, "player", entityManager, sfld::Vector2f(TILE_SIZE * 7 + TILE_SIZE/2, SCREEN_HEIGHT - 2*TILE_SIZE), Entity::SHAPE_SQUARE, Entity::DYNAMIC_MOVING, Entity::TYPE_DEFAULT);
 	health = 10;
 	reload_ = (EntityManager::bpm / 60) * 1000 / 2;
 	timer_ = reload_;
@@ -14,6 +14,10 @@ Player::Player(ResourceManager<sf::Texture, std::string>* resourceManager, Entit
 void Player::update(int frame_time) {
 	using namespace sf;
 	timer_ += frame_time;
+}
+
+int Player::getHealth() const {
+	return health;
 }
 
 void Player::takeDamage(int amount) {

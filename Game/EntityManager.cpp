@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "TopLayerObj.h"
 #include "GameState.h"
+#include "Player.h"
 
 int EntityManager::bpm = 60;
 
@@ -19,6 +20,13 @@ EntityManager::EntityManager(ResourceManager<sf::Texture, std::string>* resource
 	bg1 = sf::Sprite(resourceManager_->get("background"));
 	bg2 = sf::Sprite(resourceManager_->get("background"));
 	bgy = 0;
+	font.loadFromFile("media/victor-pixel.ttf");
+	healthtext.setFont(font);
+	scoretext.setFont(font);
+	score = 0;
+
+	healthtext.setPosition(0, SCREEN_HEIGHT - 1 * TILE_SIZE);
+	scoretext.setPosition(0, SCREEN_HEIGHT - 2 * TILE_SIZE + TILE_SIZE / 2);
 }
 
 EntityManager::~EntityManager() = default;
@@ -48,6 +56,10 @@ EntityList* EntityManager::getEntities() {
 	return &entities_;
 }
 
+void EntityManager::increaseScore() {
+	score++;
+}
+
 void EntityManager::update(int frameTime) {
 	bg1.setPosition(0, bgy - SCREEN_HEIGHT);
 	bg2.setPosition(0, bgy);
@@ -57,6 +69,13 @@ void EntityManager::update(int frameTime) {
 	}
 	bgy += 1.0f / 5.f;
 
+	std::string s = "Lives: " + std::to_string(player_->getHealth());
+	healthtext.setString(s);
+
+	std::string s2 = "Score: " + std::to_string(score);
+	scoretext.setString(s2);
+
+	
 	particleEngine_->update(frameTime);
 	for (auto& it : entities_) {
 		it->update(frameTime);
@@ -151,6 +170,8 @@ void EntityManager::render(sf::RenderTarget* target) {
 		it->render(target);
 	}
 	particleEngine_->renderParticles(target);
+	target->draw(healthtext);
+	target->draw(scoretext);
 }
 
 void EntityManager::sfmlEvent(sf::Event evt) {

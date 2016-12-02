@@ -49,7 +49,13 @@ public:
 	Player* getPlayer();
 
 	void screenShake(float magnitude, int time);
+	void increaseScore();
 private:
+	int score;
+	sf::Font font;
+	sf::Text healthtext;
+	sf::Text scoretext;
+
 	GameState* state_;
 	sf::View view;
 	int shake_timer;
