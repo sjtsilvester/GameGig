@@ -38,8 +38,11 @@ void Enemy::collided(Entity* other) {
 
 void Enemy::shoot() {
 	setSprite("enemy");
+	sf::Texture laserTexture;
 	sf::RectangleShape shape;
-	shape.setFillColor(sf::Color::Blue);
+	laserTexture.loadFromFile("laser-texture.bmp");
+	laserTexture.setRepeated(true);
+	shape.setTexture(&laserTexture);
 	shape.setSize(sfld::Vector2f(TILE_SIZE * (2.0f / 3.0f), SCREEN_HEIGHT));
 	shape.setPosition(sfld::Vector2f(getPosition().x - shape.getSize().x/2.0f, getPosition().y));
 	TopLayerObj* laser = new TopLayerObj(shape, 100);
