@@ -8,6 +8,7 @@
 #include "PatternData.h"
 #include "SoundManager.h"
 
+
 GameState::GameState() = default;
 GameState::~GameState() = default;
 
